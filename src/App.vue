@@ -2,11 +2,16 @@
 import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import { RouterView } from 'vue-router';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const route = useRouter()
+const isLoggedIn = computed(() => route.path !== "/logga-in")
 </script>
 
 <template>
   <div>
-    <AppHeader />
+    <AppHeader v-if="isLoggedIn" />
     <div class="d-flex">
       <main class="container-custom flex-grow-1">
         <RouterView />
