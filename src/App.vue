@@ -6,6 +6,8 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
+
+// do not show the header when the route is "/logga-in"
 const isLoggedIn = computed(() => route.path !== "/logga-in")
 </script>
 
