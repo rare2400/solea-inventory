@@ -3,9 +3,9 @@ import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import { RouterView } from 'vue-router';
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-const route = useRouter()
+const route = useRoute()
 const isLoggedIn = computed(() => route.path !== "/logga-in")
 </script>
 
