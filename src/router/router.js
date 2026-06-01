@@ -19,7 +19,7 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: DashboardView,
-        meta: { authRequired: true }
+        meta: { authRequired: true, adminOnly: true }
     },
     {
         path: "/products",
@@ -53,6 +53,11 @@ router.beforeEach((to) => {
     // Check if the route requires authentication
     if (to.meta.authRequired && !loggedIn) {
         return "/logga-in"
+    }
+
+    // Check if the route is admin-only and the user is not an admin
+    if (to.meta.adminOnly && role !== "admin") {
+        return "/products"
     }
 
     // Already logged in users should not access the login page
