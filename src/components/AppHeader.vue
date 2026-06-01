@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
 
-                <RouterLink to="/" class="navbar-brand fw-bold text-light">Solea</RouterLink>
+                <RouterLink :to="isAdmin ? '/dashboard' : '/products'" class="navbar-brand fw-bold text-light p-2">Solea</RouterLink>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -11,19 +11,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <!-- Navigation -->
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <RouterLink to="/dashboard" class="nav-link text-light">Hem</RouterLink>
-                        </li>
-                        <li class="nav-item">
-                            <RouterLink to="/products" class="nav-link text-light">Produkter</RouterLink>
-                        </li>
+                    <ul class="navbar-nav me-auto text-center">
                         <li v-if="isAdmin" class="nav-item">
-                            <RouterLink to="/products/new" class="nav-link text-light">Lägg till produkt</RouterLink>
+                            <RouterLink to="/dashboard" class="nav-link text-light rounded-2 p-2">Hem</RouterLink>
+                        </li>
+                        <li class="nav-item">
+                            <RouterLink to="/products" class="nav-link text-light rounded-2 p-2">Produkter</RouterLink>
+                        </li>
+                        <li class="nav-item">
+                            <RouterLink to="/products/new" class="nav-link text-light rounded-2 p-2">Lägg till produkt</RouterLink>
                         </li>
                         <!-- Log out button under navigationlinks on small screens -->
                         <li class="nav-item d-lg-none logout-mobile">
-                            <button class="btn btn-link nav-link text-light" @click="handleLogout">
+                            <button class="btn btn-link nav-link text-light p-2 w-100" @click="handleLogout">
                                 Logga ut
                             </button>
                         </li>
@@ -32,7 +32,7 @@
                     <!-- Log out button the right on wide screens -->
                     <ul class="navbar-nav ms-auto d-none d-lg-flex">
                         <li class="nav-item">
-                            <button class="btn btn-link nav-link text-light" @click="handleLogout">
+                            <button class="btn btn-link nav-link text-light p-2" @click="handleLogout">
                                 Logga ut
                             </button>
                         </li>
@@ -74,8 +74,10 @@ nav {
     padding: 0;
 }
 
+.nav-link:hover,
 .btn-link:hover {
-    color: #ccc;
+    background-color: var(--primary-hover);
+    text-decoration: underline;
 }
 
 /* Border-top on log out button on mobile to visually separate it from the navigation links */
