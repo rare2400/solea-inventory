@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-content-center align-items-center vh-100">
 
-        <div class="card card-solea p-4">
+        <section class="card solea-card p-4">
 
             <!-- Logo / Title -->
             <div class="text-center mb-4">
@@ -30,14 +30,14 @@
                 </div>
 
                 <!-- Button -->
-                <button type="submit" class="btn btn-solea w-100" :disabled="loading">
+                <button type="submit" class="btn solea-btn w-100" :disabled="loading">
                     <span v-if="loading">Loggar in...</span>
                     <span v-else>Logga in</span>
                 </button>
 
             </form>
 
-        </div>
+        </section>
 
     </div>
 </template>
@@ -77,7 +77,12 @@ async function handleLogin() {
         localStorage.setItem("firstname", profile.firstname)
         localStorage.setItem("role", profile.role)
 
-        router.push("/dashboard")
+        // Redirect based on role
+        if (profile.role === "admin") {
+            router.push("/dashboard")
+        } else {
+            router.push("/products")
+        }
 
     } catch (err) {
         error.value = "Felaktig e-post eller lösenord";
@@ -88,21 +93,7 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-.card-solea {
+.solea-card {
     width: 350px;
-}
-
-.btn-solea {
-    background-color: var(--primary);
-    color: var(--primary-light);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-solea:hover {
-    background-color: var(--primary-hover);
-    color: #fff;
 }
 </style>
