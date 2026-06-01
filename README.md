@@ -2,6 +2,7 @@
 
 Detta är en Single Page Application (SPA) byggd med vue.js som används för att hantera produkter och användare i ett lagersystem för det fiktiva smyckesföretaget Solea. Applikationen kommunicerar med ett externt REST API och erbjuder funktioner för autentisering, produktadministration och användarhantering. 
 
+Länk till publicerad applikation: [https://solea-jewelry.netlify.app](https://solea-jewelry.netlify.app)
 
 ## Verktyg
 - Vue.js (CLI med Vite)
