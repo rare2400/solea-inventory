@@ -1,12 +1,14 @@
 <template>
-    <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100">
+
+        <img src="@/assets/logo.png" alt="Solea Inventory Logo" class="mb-3 mx-auto" style="width: 200px;">
 
         <section class="card solea-card p-4">
 
             <!-- Logo / Title -->
-            <div class="text-center mb-4">
-                <h1 class="fw-light">Solea</h1>
-                <p class="text-muted">Inventory System</p>
+            <div class="text-center">
+                <h1 class="fw-light">Logga in</h1>
+                <p class="text-muted">Solea Jewelry Inventory System</p>
             </div>
 
             <!-- Error -->
