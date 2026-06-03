@@ -3,7 +3,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
 
-                <RouterLink :to="isAdmin ? '/dashboard' : '/products'" class="navbar-brand fw-bold text-light p-2">Solea</RouterLink>
+                <RouterLink :to="isAdmin ? '/dashboard' : '/products'" class="navbar-brand fw-bold text-light p-2">
+                    <img src="@/assets/solea-logo.png" alt="Solea Inventory Logo" class="me-2 header-logo">
+                </RouterLink>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -63,6 +65,10 @@ function handleLogout() {
 </script>
 
 <style scoped>
+.header-logo {
+    height: 40px;
+}
+
 /* Override Bootstrap's default navbar color with our primary color */
 nav {
     background-color: var(--primary) !important;
@@ -85,5 +91,11 @@ nav {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     margin-top: 0.5rem;
     padding-top: 0.5rem;
+}
+
+@media screen and (min-width: 900px) {
+    .header-logo {
+    height: 50px;
+}
 }
 </style>
