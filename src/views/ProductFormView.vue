@@ -3,7 +3,12 @@
 
     <!-- Page-header with back-button -->
     <div class="d-flex align-items-center gap-3 mb-4">
-      <button class="btn solea-btn-outline btn-sm" @click="router.back()">← Tillbaka</button>
+      <button class="btn solea-button-outline btn-sm" @click="router.back()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>
+        Tillbaka
+      </button>
 
       <!-- Dynamic title based on editing or adding product -->
       <h2 class="fw-light mb-0">{{ isEditing ? "Redigera produkt" : "Lägg till produkt" }} </h2>
@@ -115,18 +120,24 @@
           list="categories-list"
           placeholder="Välj eller skriv kategori" />
         <datalist id="categories-list">
-          <option v-for="cat in categories" :key="cat" :value="cat"></option>
+          <option v-for="cat in categories" 
+            :key="cat" 
+            :value="cat"
+          ></option>
         </datalist>
         <p class="invalid-feedback">{{ errors.category }}</p>
       </div>
 
       <!-- Dynamic submit button and cancel button -->
       <div class="d-flex gap-2">
-        <button type="submit" class="btn solea-btn flex-grow-1" :disabled="loading">
+        <button type="submit" class="btn solea-button flex-grow-1" :disabled="loading">
           <span v-if="loading">Sparar...</span>
           <span v-else>{{ isEditing ? "Spara ändringar" : "Lägg till produkt" }}</span>
         </button>
-        <button type="button" class="btn solea-btn-outline" @click="router.back()">
+        <button type="button" class="btn solea-button-outline" @click="router.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+          </svg>
           Avbryt
         </button>
       </div>
