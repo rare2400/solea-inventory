@@ -32,7 +32,7 @@
                 </div>
 
                 <!-- Button -->
-                <button type="submit" class="btn solea-btn w-100" :disabled="loading">
+                <button type="submit" class="btn solea-button w-100" :disabled="loading">
                     <span v-if="loading">Loggar in...</span>
                     <span v-else>Logga in</span>
                 </button>
