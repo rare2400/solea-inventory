@@ -101,6 +101,35 @@
       </div>
     </article>
   </div>
+    <!-- Bekräftelsemodal för borttagning -->
+    <div v-if="showConfirm" class="modal-overlay" @click.self="showConfirm = false">
+        <section class="modal-box" style="max-width: 400px;">
+            <h3 class="mb-2">Ta bort produkt</h3>
+            <p class="text-muted mb-4">
+            Är du säker på att du vill ta bort <strong>{{ productToDelete?.name }}</strong>? 
+            Detta går inte att ångra.
+            </p>
+            <div class="d-flex gap-2 justify-content-end">
+                <button class="btn solea-button-outline" @click="showConfirm = false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                        Avbryt
+                </button>
+                <button 
+                  class="btn btn-danger" 
+                  :disabled="deleteLoading" 
+                  @click="confirmDelete"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                    </svg>
+                    {{ deleteLoading ? 'Tar bort...' : 'Ta bort' }}
+                </button>
+            </div>
+        </section>
+    </div>
+
 </template>
 
 <script setup>
@@ -123,6 +152,8 @@ const currentStock = ref(props.product.stock)
 const stockLoading = ref(false)
 const deleteLoading = ref(false)
 const error = ref(null)
+const showConfirm = ref(false)
+const productToDelete = ref(null)
 
 // Update stock via API
 async function changeStock(delta) {
@@ -148,7 +179,11 @@ async function changeStock(delta) {
 // Delete product via API
 async function handleDelete() {
   // Confirm deletion with user
-  if (!confirm("Är du säker på att du vill ta bort produkten?")) return
+  productToDelete.value = props.product
+  showConfirm.value = true
+}
+
+async function confirmDelete() {
   deleteLoading.value = true
   error.value = null
   try {
@@ -160,6 +195,7 @@ async function handleDelete() {
     emit("deleted", id)
   } catch (err) {
     error.value = err.message
+  } finally {
     deleteLoading.value = false
   }
 }
