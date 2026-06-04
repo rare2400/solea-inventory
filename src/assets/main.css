@@ -17,24 +17,28 @@ body {
   color: #2C2C2C;
 }
 
-.solea-btn {
+.icon {
+  transform: translate(-2px, -2px);
+}
+
+.solea-button {
   background-color: var(--primary);
   color: #fff;
   border: none;
 }
 
-.solea-btn:hover {
+.solea-button:hover {
   background-color: var(--primary-hover);
   color: #fff;
 }
 
-.solea-btn-outline {
+.solea-button-outline {
   color: var(--primary);
   border: 1px solid var(--primary);
   background: transparent;
 }
 
-.solea-btn-outline:hover {
+.solea-button-outline:hover {
   background-color: var(--primary);
   color: #fff;
 }
