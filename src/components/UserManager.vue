@@ -3,7 +3,12 @@
         <!-- Header and button to add user -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="fw-light mb-0">Användarhantering</h4>
-            <button class="btn btn-sm solea-btn" @click="openForm()">+ Lägg till användare</button>
+            <button class="btn btn-sm solea-button" @click="openForm()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-fill-add icon" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                </svg> Lägg till användare
+            </button>
         </div>
 
         <!-- Loading and error message -->
@@ -23,7 +28,8 @@
                 </thead>
                 <tbody>
                     <!-- Loop through users and display their info -->
-                    <tr v-for="user in users" :key="user._id">
+                    <tr v-for="user in users" 
+                        :key="user._id">
                         <td>{{ user.firstname }} {{ user.lastname }}</td>
                         <td class="d-none d-md-table-cell">{{ user.email }}</td>
                         <td>
@@ -33,9 +39,18 @@
                         </td>
                         <!-- Edit and delete buttons -->
                         <td class="text-end d-flex gap-2 justify-content-end">
-                            <button class="btn btn-sm solea-btn-outline" @click="openForm(user)">Redigera</button>
-                            <button class="btn btn-sm btn-outline-danger" @click="handleDelete(user)">Ta
-                                bort</button>
+                            <button class="btn btn-sm solea-button-outline" @click="openForm(user)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                </svg>
+                                <span class="d-none d-md-inline mx-1">Redigera</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" @click="handleDelete(user)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                </svg>
+                                <span class="d-none d-md-inline mx-1">Ta bort</span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -47,7 +62,12 @@
             <section class="modal-box">
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="mb-0">{{ editingUser ? "Redigera användare" : "Lägg till användare" }}</h2>
+                    <h2 class="mb-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill icon" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                        {{ editingUser ? "Redigera användare" : "Lägg till användare" }}
+                    </h2>
                     <button class="btn-close" @click="closeForm"></button>
                 </div>
 
@@ -87,10 +107,15 @@
 
                     <!-- Dynamic submit depending on loading, editing or adding and cancel button -->
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn solea-btn flex-grow-1" :disabled="formLoading">
+                        <button type="submit" class="btn solea-button flex-grow-1" :disabled="formLoading">
                             {{ formLoading ? "Sparar..." : editingUser ? "Spara ändringar" : "Lägg till" }}
                         </button>
-                        <button type="button" class="btn solea-btn-outline" @click="closeForm">Avbryt</button>
+                        <button type="button" class="btn solea-button-outline" @click="closeForm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                            Avbryt
+                        </button>
                     </div>
                 </form>
 
@@ -106,8 +131,16 @@
                 Detta går inte att ångra.
                 </p>
                 <div class="d-flex gap-2 justify-content-end">
-                    <button class="btn solea-btn-outline" @click="showConfirm = false">Avbryt</button>
+                    <button class="btn solea-button-outline" @click="showConfirm = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                        Avbryt
+                    </button>
                     <button class="btn btn-danger" :disabled="deleteLoading" @click="confirmDelete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                        </svg>
                         {{ deleteLoading ? 'Tar bort...' : 'Ta bort' }}
                     </button>
                 </div>
@@ -242,27 +275,6 @@ onMounted(fetchUsers)
 </script>
 
 <style scoped>
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1050;
-    padding: 1rem;
-}
-
-.modal-box {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    width: 100%;
-    max-width: 480px;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
 .solea-thead th {
     background-color: #55584B;
     color: #fff;
