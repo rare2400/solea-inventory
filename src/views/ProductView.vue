@@ -4,8 +4,11 @@
     <!-- Page header with add button -->
     <section class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="fw-light mb-0">Produkter</h2>
-      <RouterLink to="/products/new" class="btn solea-btn">
-        + Lägg till produkt
+      <RouterLink to="/products/new" class="btn solea-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus icon" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        </svg>
+        Lägg till produkt
       </RouterLink>
     </section>
 
@@ -24,8 +27,12 @@
       <div class="col-12 col-md-3">
         <select v-model="selectedCategory" class="form-select">
           <option value="">Alla kategorier</option>
-          <option v-for="cat in categories" :key="cat" :value="cat">
-            {{ cat }}</option>
+          <option v-for="cat in categories" 
+            :key="cat" 
+            :value="cat"
+          >
+            {{ cat }}
+          </option>
         </select>
       </div>
     </div>
@@ -45,7 +52,10 @@
 
     <!-- List of products -->
     <div v-else class="row g-4">
-      <div v-for="product in filteredProducts" :key="product._id" class="col-12 col-sm-6 col-lg-4">
+      <div v-for="product in filteredProducts" 
+        :key="product._id" 
+        class="col-12 col-sm-6 col-lg-4"
+      >
         <!-- Product card -->
         <article class="card h-100 shadow-sm product-card" @click="openDetail(product)">
           
@@ -64,20 +74,28 @@
             <div class="d-flex align-items-center gap-2" @click.stop>
               <!-- Reduce stock -->
               <button
-                class="btn btn-sm solea-btn-outline"
+                class="btn btn-sm solea-button-outline"
                 :disabled="stockLoading[product._id]"
                 @click="changeStock(product, -1)"
-              >-</button>
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+              </svg>
+            </button>
               <!-- Stock badge -->
               <span class="badge fs-6" :class="product.stock > 0 ? 'bg-success' : 'bg-danger'">
                 {{ product.stock > 0 ? product.stock : "Slut i lager" }}
               </span>
               <!-- Increase stock -->
               <button
-                class="btn btn-sm solea-btn-outline"
+                class="btn btn-sm solea-button-outline"
                 :disabled="stockLoading[product._id]"
                 @click="changeStock(product, 1)"
-              >+</button>
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+              </button>
             </div>
           </div>
         </article>
@@ -85,8 +103,13 @@
     </div>
 
     <!-- Product detail component -->
-    <ProductDetail v-if="selectedProduct" :product="selectedProduct" @close="selectedProduct = null"
-      @updated="handleUpdated" @deleted="handleDeleted" />
+    <ProductDetail 
+      v-if="selectedProduct" 
+      :product="selectedProduct" 
+      @close="selectedProduct = null"
+      @updated="handleUpdated" 
+      @deleted="handleDeleted" 
+    />
 
   </div>
 </template>
