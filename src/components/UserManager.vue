@@ -79,22 +79,54 @@
                     <div class="row g-3 mb-3">
                         <div class="col-6">
                             <label class="form-label">Förnamn</label>
-                            <input v-model="form.firstname" type="text" class="form-control" required />
+                            <input v-model="form.firstname" 
+                                type="text" 
+                                class="form-control" 
+                                :class="{ 'is-invalid' : errors.firstname }"
+                                @blur="validateField('firstname')"
+                            />
+                            <div class="invalid-feedback">
+                                {{ errors.firstname }}
+                            </div>
                         </div>
                         <div class="col-6">
                             <label class="form-label">Efternamn</label>
-                            <input v-model="form.lastname" type="text" class="form-control" required />
+                            <input v-model="form.lastname" 
+                                type="text" 
+                                class="form-control" 
+                                :class="{ 'is-invalid' : errors.lastname }"
+                                @blur="validateField('lastname')"
+                            />
+                            <div class="invalid-feedback">
+                                {{ errors.lastname }}
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">E-post</label>
-                        <input v-model="form.email" type="email" class="form-control" required />
+                        <input v-model="form.email" 
+                            type="email" 
+                            class="form-control" 
+                            :class="{ 'is-invalid' : errors.email }"
+                            @blur="validateField('email')"
+                        />
+                        <div class="invalid-feedback">
+                            {{ errors.email }}
+                        </div>
                     </div>
 
                     <!-- Show password field only when adding a new user -->
                     <div v-if="!editingUser" class="mb-3">
                         <label class="form-label">Lösenord</label>
-                        <input v-model="form.password" type="password" class="form-control" required minlength="6" />
+                        <input v-model="form.password" 
+                            type="password" 
+                            class="form-control"
+                            :class="{ 'is-invalid' : errors.password }"
+                            @blur="validateField('password')"
+                        />
+                        <div class="invalid-feedback">
+                            {{ errors.password }}
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -175,6 +207,15 @@ const form = ref({
     role: "staff"
 })
 
+// Error state for form validation
+const errors = ref({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: ""
+})
+
 // Fetch users from API
 async function fetchUsers() {
     loading.value = true
@@ -220,8 +261,51 @@ function closeForm() {
     editingUser.value = null
 }
 
+// Validate individual form fields and set error messages
+function validateField(field) {
+    errors.value[field] = ""
+
+    switch (field) {
+        case "firstname":
+            if (!form.value.firstname.trim()) {
+                errors.value.firstname = "Fyll i förnamn"
+            }
+            break
+
+        case "lastname":
+            if (!form.value.lastname.trim()) {
+                errors.value.lastname = "Fyll i efternamn"
+            }
+            break
+
+        case "email":
+            if (!form.value.email.trim()) {
+                errors.value.email = "E-post är obligatorisk"
+            }
+            break
+
+        case "password":
+            if (!editingUser.value) {
+                if (!form.value.password) {
+                    errors.value.password = "Välj ett lösenord"
+                } else if (form.value.password.length < 6) {
+                    errors.value.password =
+                        "Lösenordet måste vara minst 6 tecken"
+                }
+            }
+            break
+    }
+}
+
+function validateForm() {
+    ["firstname", "lastname", "email", "password", "role"].forEach(validateField)
+    return !Object.values(errors.value).every(e => e === "") // Return true if no errors
+}
+
 // Handle form submission
 async function handleSubmit() {
+    if (!validateForm()) return
+
     formLoading.value = true
     formError.value = null
     try {
