@@ -242,6 +242,14 @@ function openForm(user = null) {
             password: "",
             role: user.role
         }
+
+        errors.value = {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            role: ""
+        }
     } else {
         // Reset form to default values
         form.value = { 
@@ -250,6 +258,14 @@ function openForm(user = null) {
             email: "", 
             password: "", 
             role: "staff" 
+        }
+        
+        errors.value = {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            role: ""
         }
     }
     showForm.value = true
@@ -297,9 +313,10 @@ function validateField(field) {
     }
 }
 
+// Validate entire form by checking each field and ensuring there are no error messages
 function validateForm() {
     ["firstname", "lastname", "email", "password", "role"].forEach(validateField)
-    return !Object.values(errors.value).every(e => e === "") // Return true if no errors
+    return Object.values(errors.value).every(e => e === "") 
 }
 
 // Handle form submission
